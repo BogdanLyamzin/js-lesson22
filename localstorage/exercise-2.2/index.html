@@ -31,29 +31,34 @@
     const emailField = formLogin.querySelector("[name=email]");
     const passwordField = formLogin.querySelector("[name=password]");
 
+    const loginData = {
+        email: "",
+        password: ""
+    };
+    if(localStorage.getItem("login-data")){
+        const {email, password} = JSON.parse(localStorage.getItem("login-data"));
+        loginData.email = email;
+        loginData.password = password;
+        emailField.value = loginData.email;
+        passwordField.value = loginData.password;
+    }
+
     emailField.addEventListener("input", function(){
-        localStorage.setItem("email", this.value);
+        loginData.email = this.value;
+        localStorage.setItem("login-data", JSON.stringify(loginData));
     });
 
     passwordField.addEventListener("input", function(){
-        localStorage.setItem("password", this.value);
+        loginData.password = this.value;
+        localStorage.setItem("login-data", JSON.stringify(loginData));
     });
-
-    const localEmail = localStorage.getItem("email");
-    if(localEmail){
-        emailField.value = localEmail;
-    }
-
-    const localPassword = localStorage.getItem("password");
-    if(localPassword){
-        passwordField.value = localPassword;
-    }
 
     formLogin.addEventListener("submit", function(e){
         e.preventDefault();
         this.reset();
-        localStorage.removeItem("email");
-        localStorage.removeItem("password");
+        localStorage.removeItem("login-data");
+        loginData.email = "";
+        loginData.password = "";
     })
     
 

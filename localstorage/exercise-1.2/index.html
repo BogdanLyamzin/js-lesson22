@@ -40,31 +40,32 @@
             localStorage.removeItem('caseList');
         })
 
-        if(localStorage.getItem('caseList')) {
-           const caselistStr = localStorage.getItem('caseList');
-           const caselistParsed = JSON.parse(caselistStr);
+        const localCaseList = localStorage.getItem('caseList');
+        if(localCaseList) {
+           const caselistParsed = JSON.parse(localCaseList);
            caselistArray.push(...caselistParsed)
-           const caselistElements = caselistParsed.map(item => `<li class="case-item">${item}</li>`).join('');
-            console.log(caselistElements)
-            caseList.insertAdjacentHTML('beforeend', caselistElements);
+           const caselistElements = caselistParsed.map(createCase);
+            caseList.append(caselistElements);
         }
-
 
         addCaseForm.addEventListener('submit', function (event) {
             event.preventDefault();
             const newCaseName = newCaseField.value;
-            const caseItem = document.createElement('li');
-            caseItem.classList.add('case-item')
-            caseItem.textContent = newCaseName;
-            caseList.append(caseItem);
+            const caseItem = createCase(newCaseName);
+            caseList.append(caseItem); 
             caselistArray.push(newCaseName);
             const caselistStr = JSON.stringify(caselistArray);
-            localStorage.setItem('caseList', caselistStr)
-            console.log(localStorage.getItem('caseList'))
+            localStorage.setItem('caseList', caselistStr);
+            console.log(localStorage.getItem('caseList'));
             newCaseField.value = '';
         });
 
-     
+        function createCase(text){
+            const caseItem = document.createElement('li');
+            caseItem.classList.add('case-item')
+            caseItem.textContent = text;
+            return caseItem;
+        }
 
 
 

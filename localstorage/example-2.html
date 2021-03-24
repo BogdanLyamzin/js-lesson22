@@ -13,6 +13,7 @@
 
     const welcomeText = document.getElementById("welcome");
     const userStr = localStorage.getItem("user");
+    console.log(userStr)
     if (userStr) {
         const userObj = JSON.parse(userStr);
         welcomeText.textContent = `Добро пожаловать, ${userObj.name} ${userObj.lastName}`;
@@ -25,12 +26,13 @@
             lastName
         };
         localStorage.setItem("user", JSON.stringify(user));
-    }
+    }   
 
-    const logoutButton = document.getElementById("loguot");
+    const logoutButton = document.getElementById("logout");
     logoutButton.addEventListener("click", function (e){
         e.preventDefault();
         localStorage.removeItem("user");
+        window.location.reload()
     })
 
 </script>
