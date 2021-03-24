@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+<div id="welcome"></div>
+<button id="logout">Выйти</button>
+<script>
+
+    const welcomeText = document.getElementById("welcome");
+    const userStr = localStorage.getItem("user");
+    if (userStr) {
+        const userObj = JSON.parse(userStr);
+        welcomeText.textContent = `Добро пожаловать, ${userObj.name} ${userObj.lastName}`;
+    } else {
+        const name = prompt("Введите свое имя");
+        const lastName = prompt("Введите фамилию");
+        welcomeText.textContent = `Добро пожаловать, ${name} ${lastName}`;
+        const user = {
+            name,
+            lastName
+        };
+        localStorage.setItem("user", JSON.stringify(user));
+    }
+
+    const logoutButton = document.getElementById("loguot");
+    logoutButton.addEventListener("click", function (e){
+        e.preventDefault();
+        localStorage.removeItem("user");
+    })
+
+</script>
+</body>
+
+</html>

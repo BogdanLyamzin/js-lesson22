@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="welcome"></div>
+    <button id="logout"></button>
+    <script>
+        // localStorage.clear();
+       const userName = prompt("Введите ваше имя");
+       localStorage.setItem("userName", userName);
+       console.log(localStorage.getItem("userName"));
+    </script>
+</body>
+
+</html>
